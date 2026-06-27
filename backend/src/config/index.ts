@@ -2,15 +2,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const CORS_WHITELIST = ['https://route.io.com'];
 const _1H_IN_MILLISECONDS = 1000 * 60 * 60;
 const _7D_IN_MILLISECONDS = _1H_IN_MILLISECONDS * 24 * 7;
 
 const config = {
   PORT: process.env.PORT!,
   NODE_ENV: process.env.NODE_ENV!,
-  CORS_WHITELIST: CORS_WHITELIST,
-  LOGTAIL_INGESTING_HOST: process.env.LOGTAIL_INGESTING_HOST!,
+  LOGTAIL_INGESTING_HOST: process.env.LOGTAIL_INGESTING_HOST
+    ? `https://${process.env.LOGTAIL_INGESTING_HOST.replace(/^https?:\/\//, '')}`
+    : undefined,
   LOGTAIL_SOURCE_TOKEN: process.env.LOGTAIL_SOURCE_TOKEN!,
   WINDOW_MS: _1H_IN_MILLISECONDS,
   MONGO_CONNECTION_URI: process.env.MONGO_CONNECTION_URI,

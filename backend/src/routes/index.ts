@@ -17,6 +17,10 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Auth routes
 router.use('/auth', authRoute);
 

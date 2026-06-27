@@ -1,13 +1,11 @@
-// Node modules
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
-import corsOptions from '@/lib/cors';
 import cors from 'cors';
-
+import path from 'path';
 import express from 'express';
 
-// Custom modules
+import corsOptions from '@/lib/cors';
 import config from '@/config';
 import router from '@/routes';
 import { logger, logtail } from '@/lib/winston';
@@ -15,16 +13,13 @@ import { connectDatabase, disconnectDatabase } from '@/lib/mongoose';
 
 const PORT = config.PORT;
 
-// Initial Express
 const app = express();
 
-// middlewares
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(`${__dirname}/public`));
-
+app.use(express.static(path.join(__dirname, '../../public')));
 app.use(cookieParser());
 app.use(compression());
 
@@ -47,9 +42,9 @@ app.use(compression());
 
 const serverTermination = async (signal: NodeJS.Signals): Promise<void> => {
   try {
-    await disconnectDatabase;
+    await disconnectDatabase();
 
-    logger.info('Server shutdown', signal);
+    logger.info('Server shutdown', { signal });
 
     logtail?.flush();
 
@@ -61,3 +56,12 @@ const serverTermination = async (signal: NodeJS.Signals): Promise<void> => {
 
 process.on('SIGTERM', serverTermination);
 process.on('SIGINT', serverTermination);
+
+process.on('unhandledRejection', (reason) => {
+  logger.error('Unhandled Rejection', { reason });
+});
+
+process.on('uncaughtException', (err) => {
+  logger.error('Uncaught Exception', { error: err });
+  process.exit(1);
+});
