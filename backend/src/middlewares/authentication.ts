@@ -29,6 +29,7 @@ const authentication = (
     req.userId = userId;
     next();
   } catch (error) {
+    logger.error(error);
     if (error instanceof TokenExpiredError) {
       res.status(401).json({
         code: 'AccessTokenExpired',

@@ -12,7 +12,6 @@ const redirect = async (req: Request, res: Response): Promise<void> => {
     const backHalfExist = await Link.exists({ backHalf }).exec();
 
     if (!backHalfExist) {
-      console.log('no');
       res.status(404).json({
         code: 'NotFound',
         message: 'Link not Found',
@@ -48,7 +47,6 @@ const redirect = async (req: Request, res: Response): Promise<void> => {
         : `http://${link.destination}`,
     );
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       code: 'ServerError',
       message: 'Server Internal Errror',

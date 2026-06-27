@@ -35,6 +35,7 @@ const authorization = (role: Role[]) => {
 
       next();
     } catch (error) {
+      logger.error(error);
       res.status(500).json({
         code: 'ServerError',
         message: 'Server Internal Errror',
