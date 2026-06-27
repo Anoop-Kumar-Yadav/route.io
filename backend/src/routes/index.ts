@@ -4,6 +4,7 @@ import authRoute from '@/routes/auth';
 import userRoute from '@/routes/users';
 import linkRoutes from '@/routes/link';
 import redirectRoutes from '@/routes/redirect';
+import config from '@/config';
 
 const router = Router();
 
@@ -11,8 +12,8 @@ router.get('/', (req, res) => {
   res.status(200).json({
     message: 'API is Live',
     status: 'OK',
-    version: '1.0.0',
-    docs: 'https://github.com/Anoop-Kumar-Yadav',
+    version: config.API_VERSION,
+    docs: config.API_DOCS_URL,
     timestamp: new Date().toISOString(),
   });
 });

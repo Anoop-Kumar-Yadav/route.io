@@ -8,6 +8,8 @@ const _7D_IN_MILLISECONDS = _1H_IN_MILLISECONDS * 24 * 7;
 const config = {
   PORT: process.env.PORT!,
   NODE_ENV: process.env.NODE_ENV!,
+  API_DOCS_URL: process.env.API_DOCS_URL,
+  API_VERSION: process.env.API_VERSION,
   LOGTAIL_INGESTING_HOST: process.env.LOGTAIL_INGESTING_HOST
     ? `https://${process.env.LOGTAIL_INGESTING_HOST.replace(/^https?:\/\//, '')}`
     : undefined,
@@ -21,6 +23,7 @@ const config = {
   JWT_PASSWORD_RESET_SECRET: process.env.JWT_PASSWORD_RESET_SECRET,
   SMTP_AUTH_PASSWORD: process.env.SMTP_AUTH_PASSWORD,
   SMTP_AUTH_USERNAME: process.env.SMTP_AUTH_USERNAME,
+  SMTP_HOST: process.env.SMTP_HOST,
   CLIENT_ORIGIN: process.env.CLIENT_ORIGIN,
 };
 

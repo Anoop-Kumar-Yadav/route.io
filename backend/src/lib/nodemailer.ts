@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import config from '@/config';
 
 const nodemailerTransport = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com',
+  host: config.SMTP_HOST,
   port: 587,
   secure: false,
   pool: true,
